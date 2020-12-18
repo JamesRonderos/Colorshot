@@ -1,9 +1,11 @@
 import React from 'react';
+import CopytoClipboard from 'react-copy-to-clipboard'
 import "./Colorbox.css";
 
 function Colorbox(props) {
     const { name, background } = props
     return (
+        <CopytoClipboard text={ background }>
         <div style={{ background }} className="ColorBox" >
             <div className="copy-container">
                 <div className="box-content">
@@ -13,6 +15,7 @@ function Colorbox(props) {
             </div>
             <span className='see-more'>More</span>
         </div>
+        </CopytoClipboard>
     );
 }
 
