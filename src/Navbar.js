@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Component } from "react";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -8,7 +7,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Slider from "rc-slider";
 import 'rc-slider/assets/index.css';
 import "./Navbar.css"
-//import {IconButton} from "@material-ui/core";
 
 function Navbar(props) {
     const {colorLevel, changeLevel, handleFormatChange} = props
@@ -17,7 +15,6 @@ function Navbar(props) {
 
     function closeSnackbar(){
         setIsOpen( false );
-        console.log(isOpen);
     }
 
     function handleChange(e) {

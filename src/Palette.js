@@ -4,6 +4,8 @@ import Navbar from "./Navbar";
 import "./Palette.css";
 
 function Palette(props) {
+    const { paletteName, emoji, colors } = props.palette;
+
     // State of color level
     const [colorLevel, setColorLevel] = useState(500);
     const [format, setFormat] = useState("hex");
@@ -19,18 +21,22 @@ function Palette(props) {
     }
 
     // Sets the background color for each box
-    const colorBoxes = props.palette.colors[colorLevel].map(color => (
-        <Colorbox background={color[format]} name={color.name} />))
+    const colorBoxes = colors[colorLevel].map(color => (
+        <Colorbox key={color[format]} background={color[format]} name={color.name} />))
 
     return (
         <div className="Palette">
-            {/*navbar here*/}
+            {/*navbar*/}
             <Navbar colorLevel={colorLevel} changeLevel={changeLevel} handleFormatChange={changeColorFormat}/>
             <div className="Palette-colors">
             {/*color boxes*/}
                 {colorBoxes}
             </div>
         {/*    footer*/}
+        <footer className="Palette-footer">
+            {paletteName}
+            <span className="emoji">{emoji}</span>
+        </footer>
         </div>
     );
 }
