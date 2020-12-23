@@ -30,11 +30,11 @@ function Palette(props) {
             <Navbar colorLevel={colorLevel} changeLevel={changeLevel} handleFormatChange={changeColorFormat}/>
             <div className="Palette-colors">
             {/*color boxes*/}
-                {colorBoxes}
+                { colorBoxes }
             </div>
         {/*    footer*/}
         <footer className="Palette-footer">
-            {paletteName}
+            { paletteName }
             <span className="emoji">{emoji}</span>
         </footer>
         </div>
