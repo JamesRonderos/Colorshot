@@ -18,7 +18,11 @@ function App() {
             <Palette palette={generatePalette(findPalette(routeProps.match.params.id)
             )} />
         )} />
-
+            <Route
+                exact
+                path="/palette/:palleteId/:colorId"
+                render={() => <h1>SINGLE COLOR PAGE</h1>}
+            />
         </Switch>
 
         // <div>
