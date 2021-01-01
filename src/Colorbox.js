@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./Colorbox.css";
 
 function Colorbox(props) {
-    const { name, background, paletteId, id } = props
+    const { name, background, paletteId, id, showLink, moreUrl } = props
     const [copied, setCopied] = useState(false);
 
     function changeCopyState() {
@@ -26,9 +26,11 @@ function Colorbox(props) {
                     </div>
                     <button className="copy-button">Copy</button>
                 </div>
-                <Link to={`/palette/${paletteId}/${id}`} onClick={e => e.stopPropagation()}>
+                {showLink && (
+                <Link to={moreUrl} onClick={e => e.stopPropagation()}>
                 <span className='see-more'>More</span>
                 </Link>
+                )}
             </div>
         </CopytoClipboard>
     );

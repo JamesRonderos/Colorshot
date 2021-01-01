@@ -23,11 +23,13 @@ function Palette(props) {
     // Sets the background color for each box
     const colorBoxes = colors[colorLevel].map(color => (
         <Colorbox
-            key={color[format]}
+            key={color.id}
             background={color[format]}
             name={color.name}
             id={color.id}
             paletteId={id}
+            moreUrl={`/palette/${id}/${color.id}`}
+            showLink="{true}"
         />
         )
     );
@@ -47,6 +49,6 @@ function Palette(props) {
         </footer>
         </div>
     );
-}
+};
 
 export default Palette;
