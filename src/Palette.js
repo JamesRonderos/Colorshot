@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Colorbox from "./Colorbox";
 import Navbar from "./Navbar";
 import "./Palette.css";
+import PaletteFooter from "./PaletteFooter";
 
 function Palette(props) {
     const { paletteName, emoji, colors, id } = props.palette;
@@ -37,16 +38,17 @@ function Palette(props) {
     return (
         <div className="Palette">
             {/*navbar*/}
-            <Navbar colorLevel={colorLevel} changeLevel={changeLevel} handleFormatChange={changeColorFormat}/>
+            <Navbar colorLevel={colorLevel}
+                    changeLevel={changeLevel}
+                    handleFormatChange={changeColorFormat}
+                    showingAllColors
+            />
             <div className="Palette-colors">
             {/*color boxes*/}
                 { colorBoxes }
             </div>
         {/*    footer*/}
-        <footer className="Palette-footer">
-            { paletteName }
-            <span className="emoji">{emoji}</span>
-        </footer>
+            <PaletteFooter paletteName={paletteName} emoji={emoji}/>
         </div>
     );
 };

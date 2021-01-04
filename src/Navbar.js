@@ -10,14 +10,16 @@ import 'rc-slider/assets/index.css';
 import "./Navbar.css"
 
 function Navbar(props) {
-    const {colorLevel, changeLevel, handleFormatChange} = props
+    const {colorLevel, changeLevel, handleFormatChange, showingAllColors} = props
     const [colorFormat, setColorFormat] = useState("hex");
     const [isOpen, setIsOpen] = useState( false );
 
+    // close format change popup notification
     function closeSnackbar(){
         setIsOpen( false );
     }
 
+    // Handle selection changes from hex, rgb, rgba
     function handleChange(e) {
         setColorFormat(e.target.value)
         setIsOpen(true)
@@ -29,12 +31,17 @@ function Navbar(props) {
             <div className="logo">
                 <Link to='/'>ColorShot</Link>
             </div>
-            <div className="sliderContainer">
+
+            {/* Dont show brightness slider if on single color page */}
+            {showingAllColors && (
+                <div className="sliderContainer">
                 <span>Level: {colorLevel}</span>
                 <div className="slider">
                     <Slider defaultValue={colorLevel} min={100} max={900} step={100} onAfterChange={changeLevel}/>
                 </div>
             </div>
+            )}
+
             <div className="select-container">
                 <Select value={colorFormat} onChange={handleChange}>
                     <MenuItem value="hex">HEX - #ffffff</MenuItem>
@@ -42,6 +49,7 @@ function Navbar(props) {
                     <MenuItem value="rgba">RGBA - rgba(255,255,255, 1.0)</MenuItem>
                 </Select>
             </div>
+
             <Snackbar anchorOrigin={{vertical: "bottom", horizontal: "center"}}
                       open={isOpen}
                       autoHideDuration={3000}
