@@ -61,6 +61,65 @@ const styles = {
         cursor: "pointer",
         textDecoration: "none",
         opacity: "0"
+    },
+    boxContent: {
+        position: "absolute",
+        width: "100%",
+        left: "0px",
+        bottom: "0px",
+        padding: "10px",
+        color: "black",
+        letterSpacing: "1px",
+        textTransform: "uppercase",
+        fontSize: "12px"
+    },
+    copyOverlay: {
+        opacity: "0",
+        zIndex: "0",
+        width: "100%",
+        height: "100%",
+        transition: "transform 0.5s ease-in-out",
+        transform: "scale(0.1)"
+    },
+    showOverlay: {
+        opacity: "1",
+        transform: "scale(50)",
+        zIndex: "10",
+        position: "absolute",
+    },
+    copyMsg: {
+        position: "fixed",
+        left: "0",
+        right: "0",
+        top: "0",
+        bottom: "0",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        fontSize: "3rem",
+        transform: "scale(0.1)",
+        opacity: "0",
+        color: "white",
+        "& h1": {
+            fontWeight: "400",
+            background: "rgba(255,255,255,0.2)",
+            width: "100%",
+            textAlign: "center",
+            marginBottom: "0",
+            padding: "1rem",
+            textTransform: "uppercase",
+        },
+        "& p": {
+            fontSize: "2rem",
+            fontWeight: "100"
+        }
+    },
+    showMessage: {
+        opacity: "1",
+        transform: "scale(1)",
+        zIndex: "25",
+        transition: "all 0.4s ease-in-out"
     }
 }
 
@@ -76,13 +135,13 @@ function Colorbox(props) {
     return (
         <CopytoClipboard text={ background } onCopy={changeCopyState}>
             <div style={{ background }} className={classes.ColorBox} >
-                <div style={{ background }} className={`copy-overlay ${copied && "show"}`} />
-                <div className="copy-msg" className={`copy-msg ${copied && "show"}`}>
+                <div style={{ background }} className={`${classes.copyOverlay} ${copied && classes.showOverlay}`} />
+                <div className={`${classes.copyMsg} ${copied && classes.showMessage}`}>
                     <h1>Copied!</h1>
                     <p className={classes.copyText}>{ background }</p>
                 </div>
-                <div className="copy-container">
-                    <div className="box-content">
+                <div>
+                    <div className={classes.boxContent}>
                         <span className={classes.colorName}>
                             { name }
                         </span>
