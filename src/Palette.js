@@ -30,7 +30,7 @@ function Palette(props) {
             id={color.id}
             paletteId={id}
             moreUrl={`/palette/${id}/${color.id}`}
-            showLink="{true}"
+            showingFullPalette="{true}"
         />
         )
     );
