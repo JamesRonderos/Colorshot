@@ -1,31 +1,9 @@
 import React, {useState} from 'react';
 import Colorbox from "./Colorbox";
 import Navbar from "./Navbar";
-import "./Palette.css";
 import PaletteFooter from "./PaletteFooter";
+import styles from "./styles/PaletteStyles"
 import { withStyles } from "@material-ui/styles";
-
-const styles = {
-    Palette: {
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column"
-    },
-    paletteColors: {
-    height: "90%"
-    },
-    paletteFooter: {
-        backgroundColor: "white",
-        height: "5vh",
-        display: "flex",
-        justifyContent: "flex-end",
-        alignItems: "center;font-weight: bold"
-    },
-    emoji: {
-        fontSize: "1.5rem",
-        margin: "0 1rem"
-    }
-};
 
 function Palette(props) {
 
@@ -61,7 +39,7 @@ function Palette(props) {
     );
 
     return (
-        <div className={classes.Palette}>
+        <div className={classes.palette}>
             {/*navbar*/}
             <Navbar colorLevel={colorLevel}
                     changeLevel={changeLevel}
