@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
-import CopytoClipboard from 'react-copy-to-clipboard'
+import CopytoClipboard from 'react-copy-to-clipboard';
 import { Link } from "react-router-dom";
 import styles from "./styles/ColorBoxStyles"
 import { withStyles } from "@material-ui/styles";
-import chroma from "chroma-js";
-
 
 
 function Colorbox(props) {

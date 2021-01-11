@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { withStyles } from "@material-ui/styles";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Snackbar from "@material-ui/core/Snackbar";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import Slider from "rc-slider";
+
+import styles from "./styles/NavbarStyles";
 import 'rc-slider/assets/index.css';
-import "./Navbar.css"
+
 
 function Navbar(props) {
-    const {colorLevel, changeLevel, handleFormatChange, showingAllColors} = props
+    const {colorLevel, changeLevel, handleFormatChange, showingAllColors, classes} = props
     const [colorFormat, setColorFormat] = useState("hex");
     const [isOpen, setIsOpen] = useState( false );
 
@@ -27,22 +30,22 @@ function Navbar(props) {
     }
 
     return(
-        <header className="Navbar">
-            <div className="logo">
+        <header className={classes.Navbar}>
+            <div className={classes.logo}>
                 <Link to='/'>ColorShot</Link>
             </div>
 
             {/* Dont show brightness slider if on single color page */}
             {showingAllColors && (
-                <div className="sliderContainer">
+            <div>
                 <span>Level: {colorLevel}</span>
-                <div className="slider">
+                <div className={classes.slider}>
                     <Slider defaultValue={colorLevel} min={100} max={900} step={100} onAfterChange={changeLevel}/>
                 </div>
             </div>
             )}
 
-            <div className="select-container">
+            <div className={classes.selectContainer}>
                 <Select value={colorFormat} onChange={handleChange}>
                     <MenuItem value="hex">HEX - #ffffff</MenuItem>
                     <MenuItem value="rgb">RGB - rgb(255,255,255)</MenuItem>
@@ -66,4 +69,4 @@ function Navbar(props) {
     )
 }
 
-export default Navbar;
+export default withStyles(styles)(Navbar);
