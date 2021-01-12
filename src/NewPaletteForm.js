@@ -10,9 +10,12 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import {ChromePicker} from 'react-color';
+import Button from '@material-ui/core/Button';
 
 
-const drawerWidth = 240;
+
+const drawerWidth = 400;
 
 const styles = theme => ({
     root: {
@@ -75,6 +78,7 @@ function NewPaletteForm(props) {
 
     const { classes, theme } = props;
     const [ open, setOpen ] = useState( false );
+    const [selectedColor, setColor ] = useState( '#30BFD6' )
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -83,6 +87,11 @@ function NewPaletteForm(props) {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    const handleColorChange = (newColor) => {
+        setColor(newColor)
+        console.log(selectedColor)
+    }
 
     return (
         <div className={classes.root}>
@@ -122,6 +131,13 @@ function NewPaletteForm(props) {
                     </IconButton>
                 </div>
                 <Divider />
+                <Typography variant="h4">Design Your Palette</Typography>
+                <div>
+                <Button variant="contained" color="secondary">Clear Palette</Button>
+                <Button variant="contained" color="primary">Random Color</Button>
+                </div>
+                <ChromePicker color={selectedColor} onChangeComplete={handleColorChange}/>
+                <Button variant="contained" color={selectedColor}>Add Color</Button>
             </Drawer>
             <main
                 className={classNames(classes.content, {
