@@ -78,7 +78,8 @@ function NewPaletteForm(props) {
 
     const { classes, theme } = props;
     const [ open, setOpen ] = useState( false );
-    const [selectedColor, setColor ] = useState( '#30BFD6' )
+    const [ selectedColor, setColor ] = useState( '#30BFD6' );
+    const [ selectedCustomColors, setCustomColor ] = useState(["purple", "#e15764"]);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -89,8 +90,12 @@ function NewPaletteForm(props) {
     };
 
     const handleColorChange = (newColor) => {
-        setColor(newColor)
+        setColor(newColor.hex)
         console.log(selectedColor)
+    }
+
+    const addNewColor = () => {
+        setCustomColor([...selectedCustomColors, selectedColor]);
     }
 
     return (
@@ -136,8 +141,8 @@ function NewPaletteForm(props) {
                 <Button variant="contained" color="secondary">Clear Palette</Button>
                 <Button variant="contained" color="primary">Random Color</Button>
                 </div>
-                <ChromePicker color={selectedColor} onChangeComplete={handleColorChange}/>
-                <Button variant="contained" color={selectedColor}>Add Color</Button>
+                <ChromePicker color={selectedColor} onChange={handleColorChange}/>
+                <Button variant="contained" color='primary' style={{backgroundColor: selectedColor}} onClick={addNewColor}>Add Color</Button>
             </Drawer>
             <main
                 className={classNames(classes.content, {
@@ -145,7 +150,11 @@ function NewPaletteForm(props) {
                 })}
             >
                 <div className={classes.drawerHeader} />
-
+                <ul>
+                    {selectedCustomColors.map(color => (
+                        <li style={{backgroundColor: color}}>{color}</li>
+                    ))}
+                </ul>
             </main>
         </div>
     );
