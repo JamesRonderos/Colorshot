@@ -123,11 +123,24 @@ function NewPaletteForm(props) {
         setNewName(evt.target.value);
     }
 
+    // Save palette button function
+    const handleSubmit = () => {
+        let newName = "New test palette"
+        const newPalette={
+            paletteName: newName,
+            id: newName.toLowerCase().replace(/ /g, "-"),
+            colors: selectedCustomColors
+        };
+        props.savePalette(newPalette);
+        props.history.push("/");
+    }
+
     return (
         <div className={classes.root}>
             <CssBaseline />
             <AppBar
                 position="fixed"
+                color="default"
                 className={classNames(classes.appBar, {
                     [classes.appBarShift]: open,
                 })}
@@ -144,6 +157,7 @@ function NewPaletteForm(props) {
                     <Typography variant="h6" color="inherit" noWrap>
                         Persistent drawer
                     </Typography>
+                    <Button variant="contained" color="primary" onClick={handleSubmit}>Save Palette</Button>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -163,7 +177,7 @@ function NewPaletteForm(props) {
                 <Divider />
                 <Typography variant="h4">Design Your Palette</Typography>
                 <div>
-                <Button variant="contained" color="secondary">Clear Palette</Button>
+                <Button variant="contained" color="secondary" onClick={() => setCustomColor([])} >Clear Palette</Button>
                 <Button variant="contained" color="primary">Random Color</Button>
                 </div>
 
