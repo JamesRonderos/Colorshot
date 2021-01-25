@@ -78,18 +78,24 @@ const styles = theme => ({
     },
 });
 
+NewPaletteForm.defaultProps = {
+    maxColors: 20
+};
+
 function NewPaletteForm(props) {
 
-    const { classes, theme } = props;
-    const [ open, setOpen ] = useState( false );
+    const { classes, maxColors } = props;
+    const [ open, setOpen ] = useState( true );
     const [ selectedColor, setColor ] = useState( '#30BFD6' );
 
     // Array of custom color: color-name pairs
-    const [ selectedCustomColors, setSelectedCustomColor ] = useState([]);
+    const [ selectedCustomColors, setSelectedCustomColor ] = useState(props.palettes[0].colors);
     // Custom name for a new selected color
     const [ newName, setNewName ] = useState("")
     // For saving custom palette names
     const [newPaletteName, setNewPaletteName] = useState("");
+
+    const paletteIsFull = selectedCustomColors.length >= maxColors
 
     useEffect(() => {
         ValidatorForm.addValidationRule('isColorNameUnique', value =>
@@ -121,18 +127,18 @@ function NewPaletteForm(props) {
     // Change state for current color selected in colorpicker
     const handleColorChange = (newColor) => {
         setColor(newColor.hex)
-    }
+    };
 
     // Change state for array of custom colors in palette
     const addNewColor = () => {
         const newColor = {color: selectedColor, name: newName}
         setSelectedCustomColor([...selectedCustomColors, newColor]);
         setNewName("");
-    }
+    };
 
     const handleTextChange = (evt) => {
         setNewName(evt.target.value);
-    }
+    };
 
     //handles custom palette name changes as you type
     const handlePaletteChange = e => {
@@ -149,12 +155,20 @@ function NewPaletteForm(props) {
         };
         props.savePalette(newPalette);
         props.history.push("/");
-    }
+    };
 
     // Remove a color from a custom color palette
     const removeColor = colorName => {
         setSelectedCustomColor(selectedCustomColors.filter(color => color.name !== colorName))
-    }
+    };
+
+    // Add a random existing color to the custom palette
+    const addRandomColor = () => {
+        const allColors = props.palettes.map(p=>p.colors).flat()
+        var rand = Math.floor(Math.random() * allColors.length);
+        const newRandColor = {color: allColors[rand].color, name: allColors[rand].name}
+        setSelectedCustomColor([...selectedCustomColors, newRandColor])
+    };
 
     // Rearrange color boxes after dragging one to a new position
     const onSortEnd = ({oldIndex, newIndex}) => {
@@ -214,7 +228,9 @@ function NewPaletteForm(props) {
                 <Typography variant="h4">Design Your Palette</Typography>
                 <div>
                     <Button variant="contained" color="secondary" onClick={() => setSelectedCustomColor([])} >Clear Palette</Button>
-                    <Button variant="contained" color="primary">Random Color</Button>
+                    <Button variant="contained" color="primary" onClick={addRandomColor} disabled={paletteIsFull}>
+                        {paletteIsFull ? "Palette Full" : "Random Color"}
+                    </Button>
                 </div>
 
                 {/*The colorpicker widget*/}
@@ -234,9 +250,10 @@ function NewPaletteForm(props) {
                         variant='contained'
                         type='submit'
                         color='primary'
-                        style={{backgroundColor: selectedColor}}
+                        disabled={paletteIsFull}
+                        style={{backgroundColor: paletteIsFull? "grey" : selectedColor}}
                     >
-                        Add Color
+                        {paletteIsFull ? "Palette Full" : "Add Color"}
                     </Button>
                 </ValidatorForm>
 
