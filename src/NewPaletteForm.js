@@ -82,8 +82,13 @@ function NewPaletteForm(props) {
     const { classes, theme } = props;
     const [ open, setOpen ] = useState( false );
     const [ selectedColor, setColor ] = useState( '#30BFD6' );
-    const [ selectedCustomColors, setCustomColor ] = useState([]);
+
+    // Array of custom color: color-name pairs
+    const [ selectedCustomColors, setSelectedCustomColor ] = useState([]);
+    // Custom name for a new selected color
     const [ newName, setNewName ] = useState("")
+    // For saving custom palette names
+    const [newPaletteName, setNewPaletteName] = useState("");
 
     useEffect(() => {
         ValidatorForm.addValidationRule('isColorNameUnique', value =>
@@ -94,6 +99,11 @@ function NewPaletteForm(props) {
         ValidatorForm.addValidationRule('isColorUnique', () =>
             selectedCustomColors.every(
                 ({ color }) => color !== selectedColor
+            ));
+
+        ValidatorForm.addValidationRule('isPaletteNameUnique', value =>
+            props.palettes.every(
+                ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
             ));
     });
 
@@ -115,7 +125,7 @@ function NewPaletteForm(props) {
     // Change state for array of custom colors in palette
     const addNewColor = () => {
         const newColor = {color: selectedColor, name: newName}
-        setCustomColor([...selectedCustomColors, newColor]);
+        setSelectedCustomColor([...selectedCustomColors, newColor]);
         setNewName("");
     }
 
@@ -123,12 +133,17 @@ function NewPaletteForm(props) {
         setNewName(evt.target.value);
     }
 
+    //handles custom palette name changes as you type
+    const handlePaletteChange = e => {
+        //setNewPaletteName({ ...newPaletteName, [e.target.name]: e.target.value });
+        setNewPaletteName(e.target.value)
+    };
+
     // Save palette button function
     const handleSubmit = () => {
-        let newName = "New test palette"
         const newPalette={
-            paletteName: newName,
-            id: newName.toLowerCase().replace(/ /g, "-"),
+            paletteName: newPaletteName,
+            id: newPaletteName.toLowerCase().replace(/ /g, "-"),
             colors: selectedCustomColors
         };
         props.savePalette(newPalette);
@@ -157,7 +172,17 @@ function NewPaletteForm(props) {
                     <Typography variant="h6" color="inherit" noWrap>
                         Persistent drawer
                     </Typography>
-                    <Button variant="contained" color="primary" onClick={handleSubmit}>Save Palette</Button>
+                    <ValidatorForm onSubmit={handleSubmit}>
+                    <TextValidator
+                        label="Palette Name"
+                        value={newPaletteName}
+                        name="newPaletteName"
+                        onChange={handlePaletteChange}
+                        validators={["required","isPaletteNameUnique"]}
+                        errorMessages={["Enter a Palette Name!", "Name already used."]}
+                    />
+                    <Button variant="contained" color="primary" type="submit">Save Palette</Button>
+                    </ValidatorForm>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -177,8 +202,8 @@ function NewPaletteForm(props) {
                 <Divider />
                 <Typography variant="h4">Design Your Palette</Typography>
                 <div>
-                <Button variant="contained" color="secondary" onClick={() => setCustomColor([])} >Clear Palette</Button>
-                <Button variant="contained" color="primary">Random Color</Button>
+                    <Button variant="contained" color="secondary" onClick={() => setSelectedCustomColor([])} >Clear Palette</Button>
+                    <Button variant="contained" color="primary">Random Color</Button>
                 </div>
 
                 {/*The colorpicker widget*/}
@@ -212,9 +237,9 @@ function NewPaletteForm(props) {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                    {selectedCustomColors.map(color => (
-                        <DraggableColorbox color={color.color} name={color.name}/>
-                    ))}
+                {selectedCustomColors.map(color => (
+                    <DraggableColorbox color={color.color} name={color.name}/>
+                ))}
             </main>
         </div>
     );

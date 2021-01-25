@@ -24,7 +24,11 @@ function App() {
     return (
         <Switch>
             {/*keep new palette route before ID route to prevent errors*/}
-            <Route path="/palette/new" render={(routeProps) => <NewPaletteForm savePalette={savePalette} {...routeProps}/>} />
+            <Route path="/palette/new" render={(routeProps) => <NewPaletteForm
+                savePalette={savePalette}
+                palettes={palettes}
+                {...routeProps}/>}
+            />
             <Route
                 exact
                 path="/palette/:paletteId/:colorId"
@@ -43,11 +47,11 @@ function App() {
                     <PaletteList palettes={palettes} {...routeProps}/> }
             />
             <Route exact
-                path="/palette/:id"
-                render={routeProps => (
-                    <Palette palette={generatePalette(findPalette(routeProps.match.params.id))}
-                    />
-                )}
+                   path="/palette/:id"
+                   render={routeProps => (
+                       <Palette palette={generatePalette(findPalette(routeProps.match.params.id))}
+                       />
+                   )}
             />
         </Switch>
 
