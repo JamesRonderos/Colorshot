@@ -21,7 +21,7 @@ function PaletteList(props) {
                     <Link to="/palette/new">Create Palette</Link>
                 </nav>
                 <div className={classes.palettes}>{palettes.map(palette => (
-                    <MiniPalette {...palette} handleClick={() => goToPalette(palette.id)}/>
+                    <MiniPalette key={palette.id} {...palette} handleClick={() => goToPalette(palette.id)}/>
                 ))}
                 </div>
             </div>

@@ -16,10 +16,6 @@ const styles = {
         },
         "&:hover $colorText": {
             transform: "scale(1.1)",
-        },
-        "&:hover": {
-            transform: "scale(1.05)",
-            transition: "all 0.3s ease-in-out"
         }
     },
     boxContent: {
@@ -44,14 +40,14 @@ const styles = {
 }
 
 function DraggableColorbox(props) {
-    const { classes } = props;
+    const { classes, name, color, handleClick } = props;
     return(
         <div className={classes.root}
-             style={{backgroundColor: props.color}}
+             style={{backgroundColor: color}}
         >
             <div className={classes.boxContent}>
-                <span className={classes.colorText}>{props.name}</span>
-                <DeleteOutlinedIcon className={classes.deleteIcon}/>
+                <span className={classes.colorText}>{name}</span>
+                <DeleteOutlinedIcon className={classes.deleteIcon} onClick={handleClick}/>
             </div>
         </div>
     )

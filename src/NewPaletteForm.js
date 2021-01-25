@@ -150,6 +150,11 @@ function NewPaletteForm(props) {
         props.history.push("/");
     }
 
+    // Remove a color from a custom color palette
+    const removeColor = colorName => {
+        setSelectedCustomColor(selectedCustomColors.filter(color => color.name !== colorName))
+    }
+
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -238,7 +243,8 @@ function NewPaletteForm(props) {
             >
                 <div className={classes.drawerHeader} />
                 {selectedCustomColors.map(color => (
-                    <DraggableColorbox color={color.color} name={color.name}/>
+                    // Render draggable color boxes
+                    <DraggableColorbox key={color.name} color={color.color} name={color.name} handleClick={() => removeColor(color.name)}/>
                 ))}
             </main>
         </div>
