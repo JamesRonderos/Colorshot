@@ -142,7 +142,6 @@ function NewPaletteForm(props) {
 
     //handles custom palette name changes as you type
     const handlePaletteChange = e => {
-        //setNewPaletteName({ ...newPaletteName, [e.target.name]: e.target.value });
         setNewPaletteName(e.target.value)
     };
 
@@ -197,16 +196,16 @@ function NewPaletteForm(props) {
                     <Typography variant="h6" color="inherit" noWrap>
                         Persistent drawer
                     </Typography>
-                    <ValidatorForm onSubmit={handleSubmit}>
-                    <TextValidator
-                        label="Palette Name"
-                        value={newPaletteName}
-                        name="newPaletteName"
-                        onChange={handlePaletteChange}
-                        validators={["required","isPaletteNameUnique"]}
-                        errorMessages={["Enter a Palette Name!", "Name already used."]}
-                    />
-                    <Button variant="contained" color="primary" type="submit">Save Palette</Button>
+                    <ValidatorForm onSubmit={handleSubmit} instantValidate={false}>
+                        <TextValidator
+                            label="Palette Name"
+                            value={newPaletteName}
+                            name="newPaletteName"
+                            onChange={handlePaletteChange}
+                            validators={["required","isPaletteNameUnique"]}
+                            errorMessages={["Enter a Palette Name!", "Name already used."]}
+                        />
+                        <Button variant="contained" color="primary" type="submit">Save Palette</Button>
                     </ValidatorForm>
                 </Toolbar>
             </AppBar>
@@ -237,7 +236,7 @@ function NewPaletteForm(props) {
                 <ChromePicker color={selectedColor} onChange={handleColorChange}/>
 
                 {/* Color name form with validation*/}
-                <ValidatorForm onSubmit={addNewColor}>
+                <ValidatorForm onSubmit={addNewColor} instantValidate={false}>
                     <TextValidator
                         value={newName}
                         onChange={handleTextChange}
@@ -266,7 +265,7 @@ function NewPaletteForm(props) {
             >
                 <div className={classes.drawerHeader} />
                 {/* Render draggable color boxes from DraggableColorList */}
-                <DraggableColorList colors={selectedCustomColors} removeColor={removeColor} axis="xy" onSortEnd={onSortEnd} />
+                <DraggableColorList colors={selectedCustomColors} removeColor={removeColor} axis="xy" onSortEnd={onSortEnd} distance={1} />
             </main>
         </div>
     );

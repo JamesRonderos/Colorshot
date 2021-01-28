@@ -1,5 +1,4 @@
 import React from "react";
-import DraggableColorBox from "./DraggableColorbox"
 import {SortableContainer} from "react-sortable-hoc";
 import DraggableColorbox from "./DraggableColorbox";
 
