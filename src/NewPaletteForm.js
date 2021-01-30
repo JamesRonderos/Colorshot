@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import PaletteFormNav from './PaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import DraggableColorList from './DraggableColorList';
-import {ChromePicker} from 'react-color';
 import arrayMove from 'array-move';
 
 const drawerWidth = 400;
@@ -25,24 +19,7 @@ const styles = theme => ({
     root: {
         display: 'flex',
     },
-    appBar: {
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButton: {
-        marginLeft: 12,
-        marginRight: 20,
-    },
+
     hide: {
         display: 'none',
     },
@@ -85,12 +62,12 @@ NewPaletteForm.defaultProps = {
 
 function NewPaletteForm(props) {
 
-    const { classes, maxColors } = props;
+    const { classes, maxColors, palettes } = props;
     const [ open, setOpen ] = useState( true );
 
 
     // Array of custom color: color-name pairs
-    const [ selectedCustomColors, setSelectedCustomColor ] = useState(props.palettes[0].colors);
+    const [ selectedCustomColors, setSelectedCustomColor ] = useState(palettes[0].colors);
 
     // For saving custom palette names
     const [newPaletteName, setNewPaletteName] = useState("");
@@ -132,7 +109,7 @@ function NewPaletteForm(props) {
 
     // Add a random existing color to the custom palette
     const addRandomColor = () => {
-        const allColors = props.palettes.map(p=>p.colors).flat()
+        const allColors = palettes.map(p=>p.colors).flat()
         var rand = Math.floor(Math.random() * allColors.length);
         const newRandColor = {color: allColors[rand].color, name: allColors[rand].name}
         setSelectedCustomColor([...selectedCustomColors, newRandColor])
@@ -149,8 +126,7 @@ function NewPaletteForm(props) {
             {/*Top nav bar*/}
             <PaletteFormNav
                 setOpen={setOpen}
-                classes={classes}
-                palettes={props.palettes}
+                palettes={palettes}
                 handleSubmit={handleSubmit}
                 newPaletteName={newPaletteName}
                 setNewPaletteName={setNewPaletteName}
