@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PaletteFormNav from './PaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
 import classNames from 'classnames';
@@ -9,7 +9,6 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import DraggableColorList from './DraggableColorList';
 import arrayMove from 'array-move';
 
@@ -29,6 +28,8 @@ const styles = theme => ({
     },
     drawerPaper: {
         width: drawerWidth,
+        display: "flex",
+        alignItems: "center"
     },
     drawerHeader: {
         display: 'flex',
@@ -54,6 +55,20 @@ const styles = theme => ({
         }),
         marginLeft: 0,
     },
+    container: {
+        width: "90%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    buttons: {
+        width: "100%"
+    },
+    button: {
+        width: "50%"
+    }
 });
 
 NewPaletteForm.defaultProps = {
@@ -73,13 +88,6 @@ function NewPaletteForm(props) {
     const [newPaletteName, setNewPaletteName] = useState("");
 
     const paletteIsFull = selectedCustomColors.length >= maxColors
-
-    useEffect(() => {
-        ValidatorForm.addValidationRule('isColorNameUnique', value =>
-            selectedCustomColors.every(
-                ({ name }) => name.toLowerCase() !== value.toLowerCase()
-            ));
-    });
 
     // Change state for sliding menu drawer
     const handleDrawerOpen = () => {
@@ -148,10 +156,11 @@ function NewPaletteForm(props) {
                     </IconButton>
                 </div>
                 <Divider />
-                <Typography variant="h4">Design Your Palette</Typography>
-                <div>
-                    <Button variant="contained" color="secondary" onClick={() => setSelectedCustomColor([])} >Clear Palette</Button>
-                    <Button variant="contained" color="primary" onClick={addRandomColor} disabled={paletteIsFull}>
+                <div className={classes.container}>
+                <Typography variant="h4" gutterBottom>Design Your Palette</Typography>
+                <div className={classes.buttons}>
+                    <Button variant="contained" className={classes.button} color="secondary" onClick={() => setSelectedCustomColor([])} >Clear Palette</Button>
+                    <Button variant="contained" className={classes.button} color="primary" onClick={addRandomColor} disabled={paletteIsFull}>
                         {paletteIsFull ? "Palette Full" : "Random Color"}
                     </Button>
                 </div>
@@ -160,8 +169,9 @@ function NewPaletteForm(props) {
                 <ColorPickerForm
                     maxColors={maxColors}
                     selectedCustomColors={selectedCustomColors}
-                    setSelectedCustomColor={setSelectedCustomColor}/>
-
+                    setSelectedCustomColor={setSelectedCustomColor}
+                />
+                </div>
             </Drawer>
             <main
                 className={classNames(classes.content, {
