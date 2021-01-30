@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import PaletteFormNav from './PaletteFormNav';
+import ColorPickerForm from './ColorPickerForm';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -10,13 +13,11 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import DraggableColorList from "./DraggableColorList";
-import {ChromePicker} from 'react-color';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import arrayMove from "array-move";
-
-
+import DraggableColorList from './DraggableColorList';
+import {ChromePicker} from 'react-color';
+import arrayMove from 'array-move';
 
 const drawerWidth = 400;
 
@@ -86,12 +87,11 @@ function NewPaletteForm(props) {
 
     const { classes, maxColors } = props;
     const [ open, setOpen ] = useState( true );
-    const [ selectedColor, setColor ] = useState( '#30BFD6' );
+
 
     // Array of custom color: color-name pairs
     const [ selectedCustomColors, setSelectedCustomColor ] = useState(props.palettes[0].colors);
-    // Custom name for a new selected color
-    const [ newName, setNewName ] = useState("")
+
     // For saving custom palette names
     const [newPaletteName, setNewPaletteName] = useState("");
 
@@ -101,16 +101,6 @@ function NewPaletteForm(props) {
         ValidatorForm.addValidationRule('isColorNameUnique', value =>
             selectedCustomColors.every(
                 ({ name }) => name.toLowerCase() !== value.toLowerCase()
-            ));
-
-        ValidatorForm.addValidationRule('isColorUnique', () =>
-            selectedCustomColors.every(
-                ({ color }) => color !== selectedColor
-            ));
-
-        ValidatorForm.addValidationRule('isPaletteNameUnique', value =>
-            props.palettes.every(
-                ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
             ));
     });
 
@@ -122,27 +112,6 @@ function NewPaletteForm(props) {
     // Change state for sliding menu drawer
     const handleDrawerClose = () => {
         setOpen(false);
-    };
-
-    // Change state for current color selected in colorpicker
-    const handleColorChange = (newColor) => {
-        setColor(newColor.hex)
-    };
-
-    // Change state for array of custom colors in palette
-    const addNewColor = () => {
-        const newColor = {color: selectedColor, name: newName}
-        setSelectedCustomColor([...selectedCustomColors, newColor]);
-        setNewName("");
-    };
-
-    const handleTextChange = (evt) => {
-        setNewName(evt.target.value);
-    };
-
-    //handles custom palette name changes as you type
-    const handlePaletteChange = e => {
-        setNewPaletteName(e.target.value)
     };
 
     // Save palette button function
@@ -176,39 +145,18 @@ function NewPaletteForm(props) {
 
     return (
         <div className={classes.root}>
-            <CssBaseline />
-            <AppBar
-                position="fixed"
-                color="default"
-                className={classNames(classes.appBar, {
-                    [classes.appBarShift]: open,
-                })}
-            >
-                <Toolbar disableGutters={!open}>
-                    <IconButton
-                        color="inherit"
-                        aria-label="Open drawer"
-                        onClick={handleDrawerOpen}
-                        className={classNames(classes.menuButton, open && classes.hide)}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" color="inherit" noWrap>
-                        Persistent drawer
-                    </Typography>
-                    <ValidatorForm onSubmit={handleSubmit} instantValidate={false}>
-                        <TextValidator
-                            label="Palette Name"
-                            value={newPaletteName}
-                            name="newPaletteName"
-                            onChange={handlePaletteChange}
-                            validators={["required","isPaletteNameUnique"]}
-                            errorMessages={["Enter a Palette Name!", "Name already used."]}
-                        />
-                        <Button variant="contained" color="primary" type="submit">Save Palette</Button>
-                    </ValidatorForm>
-                </Toolbar>
-            </AppBar>
+
+            {/*Top nav bar*/}
+            <PaletteFormNav
+                setOpen={setOpen}
+                classes={classes}
+                palettes={props.palettes}
+                handleSubmit={handleSubmit}
+                newPaletteName={newPaletteName}
+                setNewPaletteName={setNewPaletteName}
+                handleDrawerOpen={handleDrawerOpen}
+            />
+
             <Drawer
                 className={classes.drawer}
                 variant="persistent"
@@ -232,30 +180,11 @@ function NewPaletteForm(props) {
                     </Button>
                 </div>
 
-                {/*The colorpicker widget*/}
-                <ChromePicker color={selectedColor} onChange={handleColorChange}/>
-
-                {/* Color name form with validation*/}
-                <ValidatorForm onSubmit={addNewColor} instantValidate={false}>
-                    <TextValidator
-                        value={newName}
-                        onChange={handleTextChange}
-                        validators={["required", "isColorNameUnique", "isColorUnique"]}
-                        errorMessages={["You can't leave that poor color nameless!", "You already used that name chief. Try another one.", "Hey! That color's already in here!"]}
-                    />
-
-                    {/*Add-color-to-palette button*/}
-                    <Button
-                        variant='contained'
-                        type='submit'
-                        color='primary'
-                        disabled={paletteIsFull}
-                        style={{backgroundColor: paletteIsFull? "grey" : selectedColor}}
-                    >
-                        {paletteIsFull ? "Palette Full" : "Add Color"}
-                    </Button>
-                </ValidatorForm>
-
+                {/*The Color Picker box*/}
+                <ColorPickerForm
+                    maxColors={maxColors}
+                    selectedCustomColors={selectedCustomColors}
+                    setSelectedCustomColor={setSelectedCustomColor}/>
 
             </Drawer>
             <main

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,7 +10,6 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-
 
 export default function PaletteFormNav(props) {
     const { classes, open, setNewPaletteName, newPaletteName, handleSubmit, handleDrawerOpen } = props;
@@ -69,4 +69,4 @@ export default function PaletteFormNav(props) {
     )
 }
 
-// withStyles(styles, { withTheme: true })(PaletteFormNav);
+// export default withStyles(styles, { withTheme: true })(PaletteFormNav);
