@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
+import PaletteMetaForum from "./PaletteMetaForum";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -45,12 +46,6 @@ const styles = theme => ({
 function PaletteFormNav(props) {
     const { classes, open, setNewPaletteName, newPaletteName, handleSubmit, handleDrawerOpen } = props;
 
-    useEffect(() => {
-        ValidatorForm.addValidationRule('isPaletteNameUnique', value =>
-            props.palettes.every(
-                ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
-            ));
-    });
 
     //handles custom palette name changes as you type
     const handlePaletteChange = e => {
@@ -81,17 +76,7 @@ function PaletteFormNav(props) {
                     </Typography>
                 </Toolbar>
                 <div className={classes.navBtns}>
-                    <ValidatorForm onSubmit={handleSubmit}>
-                        <TextValidator
-                            label="Palette Name"
-                            value={newPaletteName}
-                            name="newPaletteName"
-                            onChange={handlePaletteChange}
-                            validators={["required","isPaletteNameUnique"]}
-                            errorMessages={["Enter a Palette Name!", "Name already used."]}
-                        />
-                        <Button variant="contained" color="primary" type="submit">Save Palette</Button>
-                    </ValidatorForm>
+                    <PaletteMetaForum handleSubmit={handleSubmit} newPaletteName={newPaletteName} handlePaletteChange={handlePaletteChange} palettes={props.palettes} />
                     <Link to='/'>
                         <Button variant="contained" color="secondary">Go Back</Button>
                     </Link>

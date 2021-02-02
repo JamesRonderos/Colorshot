@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
     picker: {
+        width: "100% !important",
         marginTop: "2rem"
     },
     addColor: {
