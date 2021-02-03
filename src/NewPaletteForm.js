@@ -100,12 +100,9 @@ function NewPaletteForm(props) {
     };
 
     // Save palette button function
-    const handleSubmit = () => {
-        const newPalette={
-            paletteName: newPaletteName,
-            id: newPaletteName.toLowerCase().replace(/ /g, "-"),
-            colors: selectedCustomColors
-        };
+    const handleSubmit = (newPalette) => {
+        newPalette.id = newPaletteName.toLowerCase().replace(/ /g, "-");
+        newPalette.colors = selectedCustomColors;
         props.savePalette(newPalette);
         props.history.push("/");
     };
