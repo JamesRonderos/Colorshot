@@ -1,3 +1,5 @@
+import sizes from "../sizes";
+
 export default {
     Navbar: {
         display: "flex",
@@ -6,8 +8,8 @@ export default {
         height: "6vh"
     },
     logo: {
-        margin: "15px",
-        padding: "0 13px",
+        margin: "10px",
+        padding: "0 10px",
         fontSize: "22px",
         backgroundColor: "#eceff1",
         fontFamily: "Roboto",
@@ -17,7 +19,10 @@ export default {
         "& a": {
             textDecoration: "none",
             color: "black"
-        }
+        },
+        [sizes.down("xs")]: {
+            display: "none",
+        },
     },
     slider: {
         width: "350px",
@@ -39,7 +44,10 @@ export default {
             height: "13px",
             marginLeft: "-7px",
             marginTop: "-3px",
-        }
+        },
+        [sizes.down("md")]: {
+            width: "150px",
+        },
     },
     selectContainer: {
         marginLeft: "auto",
