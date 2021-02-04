@@ -16,10 +16,14 @@ function App() {
         window.localStorage.setItem("palettes", JSON.stringify(palettes));
     }, [palettes])
 
-    function findPalette(id) {
+    const findPalette = (id) => {
         return palettes.find(function (palette) {
             return palette.id === id;
         })
+    }
+
+    const deletePalette = (id) => {
+        setPalettes(palettes.filter(palette => palette.id !== id))
     }
 
     const savePalette = (newPalette) => {
@@ -49,7 +53,7 @@ function App() {
                 exact
                 path="/"
                 render={(routeProps) =>
-                    <PaletteList palettes={palettes} {...routeProps}/>}
+                    <PaletteList palettes={palettes} deletePalette={deletePalette} {...routeProps} />}
             />
             <Route exact
                    path="/palette/:id"
