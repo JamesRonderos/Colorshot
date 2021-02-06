@@ -37,7 +37,7 @@ function PaletteFormNav(props) {
                 position="fixed"
                 color="default"
                 className={classNames(classes.appBar, {
-                    [classes.appBarShift]: open,
+                    [classes.appBarShift]: open
                 })}
             >
                 <Toolbar disableGutters={!open}>

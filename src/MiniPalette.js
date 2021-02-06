@@ -12,7 +12,6 @@ const MiniPalette = memo(({classes, paletteName, emoji, colors, openDialog, goTo
             key={color.name}
         />
     )));
-    console.log("RENDERING: ", paletteName)
 
     const removePalette = (e) => {
         e.stopPropagation();
