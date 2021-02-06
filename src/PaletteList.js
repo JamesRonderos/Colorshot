@@ -19,12 +19,12 @@ import { withStyles } from "@material-ui/styles";
 
 function PaletteList(props) {
 
-    const { palettes, classes, deletePalette } = props;
+    const { palettes, classes, deletePalette, history } = props;
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const [idToDelete, setIdToDelete] = useState("");
 
     const goToPalette = (id) => {
-        props.history.push(`/palette/${id}`);
+        history.push(`/palette/${id}`);
     };
 
     const openDialog = (id) => {

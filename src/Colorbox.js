@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import CopytoClipboard from 'react-copy-to-clipboard';
 import { Link } from "react-router-dom";
-import styles from "./styles/ColorBoxStyles"
-import { withStyles } from "@material-ui/styles";
 import classNames from "classnames";
+import { withStyles } from "@material-ui/styles";
+import styles from "./styles/ColorBoxStyles"
 
 
 function Colorbox(props) {
-    const { name, background, paletteId, id, showingFullPalette, moreUrl, classes } = props
+    const { name, background, showingFullPalette, moreUrl, classes } = props
     const [copied, setCopied] = useState(false);
 
     function changeCopyState() {
         setCopied(true)
         setTimeout(() => setCopied(false), 1000);
-    };
+    }
 
     return (
         <CopytoClipboard text={background} onCopy={changeCopyState}>

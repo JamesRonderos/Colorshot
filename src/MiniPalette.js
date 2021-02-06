@@ -22,7 +22,6 @@ const MiniPalette = memo(({classes, paletteName, emoji, colors, openDialog, goTo
         goToPalette(id)
     }
 
-
     return (
         <div className={classes.root} onClick={handleClick}>
             <DeleteOutlinedIcon

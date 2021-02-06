@@ -1,17 +1,17 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
+import { withStyles } from "@material-ui/styles";
 import Colorbox from "./Colorbox";
 import Navbar from "./Navbar";
 import PaletteFooter from "./PaletteFooter";
 import styles from "./styles/PaletteStyles";
-import { withStyles } from "@material-ui/styles";
 
 function SingleColorPalette(props) {
 
     const { paletteName, emoji, id } = props.palette;
     const { classes } = props;
-    const [_shades, setShades] = useState(gatherShades(props.palette, props.colorId))
     const [format, setFormat] = useState("hex");
+    const _shades = gatherShades(props.palette, props.colorId)
 
     function gatherShades(palette, colorToFilterBy) {
         let shades = [];

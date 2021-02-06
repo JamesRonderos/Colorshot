@@ -19,9 +19,8 @@ NewPaletteForm.defaultProps = {
 
 function NewPaletteForm(props) {
 
-    const { classes, maxColors, palettes } = props;
+    const { classes, maxColors, palettes, savePalette, history } = props;
     const [ open, setOpen ] = useState( true );
-
 
     // Array of custom color: color-name pairs
     const [ selectedCustomColors, setSelectedCustomColor ] = useState(palettes[0].colors);
@@ -45,8 +44,8 @@ function NewPaletteForm(props) {
     const handleSubmit = (newPalette) => {
         newPalette.id = newPaletteName.toLowerCase().replace(/ /g, "-");
         newPalette.colors = selectedCustomColors;
-        props.savePalette(newPalette);
-        props.history.push("/");
+        savePalette(newPalette);
+        history.push("/");
     };
 
     // Remove a color from a custom color palette

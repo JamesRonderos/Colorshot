@@ -7,10 +7,8 @@ import Snackbar from "@material-ui/core/Snackbar";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import Slider from "rc-slider";
-
 import styles from "./styles/NavbarStyles";
 import 'rc-slider/assets/index.css';
-
 
 function Navbar(props) {
     const {colorLevel, changeLevel, handleFormatChange, showingAllColors, classes} = props

@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import styles from './styles/PaletteFormNavStyles'
 
 function PaletteFormNav(props) {
-    const { classes, open, setNewPaletteName, newPaletteName, handleSubmit, handleDrawerOpen } = props;
+    const { classes, open, setNewPaletteName, newPaletteName, handleSubmit, handleDrawerOpen, palettes } = props;
 
     const [formShowing, setFormShowing] = useState(false);
 
@@ -32,7 +32,7 @@ function PaletteFormNav(props) {
 
     return (
         <div className={classes.root}>
-            <CssBaseline />
+            <CssBaseline/>
             <AppBar
                 position="fixed"
                 color="default"
@@ -45,10 +45,11 @@ function PaletteFormNav(props) {
                         color="inherit"
                         aria-label="Open drawer"
                         onClick={handleDrawerOpen}
-                        className={classNames(classes.menuButton, {[classes.hide] : open
+                        className={classNames(classes.menuButton, {
+                            [classes.hide]: open
                         })}
                     >
-                        <AddToPhotosIcon />
+                        <AddToPhotosIcon/>
                     </IconButton>
                     <Typography variant="h6" color="inherit" noWrap>
                         Create A Custom Palette
@@ -66,8 +67,9 @@ function PaletteFormNav(props) {
                 </div>
             </AppBar>
             {formShowing && (
-                <PaletteMetaForum handleSubmit={handleSubmit} hideForm={hideForm} newPaletteName={newPaletteName} handlePaletteChange={handlePaletteChange} palettes={props.palettes} />
-                )}
+                <PaletteMetaForum handleSubmit={handleSubmit} hideForm={hideForm} newPaletteName={newPaletteName}
+                                  handlePaletteChange={handlePaletteChange} palettes={palettes}/>
+            )}
         </div>
     )
 }

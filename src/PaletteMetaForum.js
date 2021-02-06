@@ -13,17 +13,16 @@ const PaletteMetaForum = props => {
     const [stage, setStage] = React.useState("form")
 
 
-    const { newPaletteName, handleSubmit, handlePaletteChange, hideForm } = props;
+    const { newPaletteName, handleSubmit, handlePaletteChange, hideForm, palettes } = props;
 
     useEffect(() => {
         ValidatorForm.addValidationRule('isPaletteNameUnique', value =>
-            props.palettes.every(
+            palettes.every(
                 ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
             ));
     });
 
     const savePalette = (emoji) => {
-        console.log(emoji.native);
         const paletteInfoContent = {
             paletteName: newPaletteName,
             emoji: emoji.native
