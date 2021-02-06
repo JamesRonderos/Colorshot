@@ -29,6 +29,7 @@ const PaletteMetaForum = props => {
             emoji: emoji.native
         };
         handleSubmit(paletteInfoContent)
+        setStage("");
     };
 
     const showEmojiPicker = () => {
