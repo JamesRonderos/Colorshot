@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Palette from './Palette';
 import PaletteList from "./PaletteList";
