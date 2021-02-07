@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CopytoClipboard from 'react-copy-to-clipboard';
 import { Link } from "react-router-dom";
 import classNames from "classnames";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/styles";
 import styles from "./styles/ColorBoxStyles"
 
 

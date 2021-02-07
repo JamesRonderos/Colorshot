@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/styles";
 import styles from "./styles/MiniPaletteStyles";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 

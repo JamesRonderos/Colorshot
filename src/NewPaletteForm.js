@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import PaletteFormNav from './PaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -12,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import DraggableColorList from './DraggableColorList';
 import arrayMove from 'array-move';
 import styles from './styles/NewPaletteFormStyles';
+import { withStyles } from '@material-ui/core/styles';
 import seedColors from "./seedColors";
 
 NewPaletteForm.defaultProps = {
@@ -77,6 +77,7 @@ function NewPaletteForm(props) {
         setSelectedCustomColor(arrayMove(selectedCustomColors, oldIndex, newIndex))
     };
 
+
     return (
         <div className={classes.root}>
 
@@ -95,9 +96,7 @@ function NewPaletteForm(props) {
                 variant="persistent"
                 anchor="left"
                 open={open}
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
+                classes={{ paper: classes.drawerPaper }}
             >
                 <div className={classes.drawerHeader}>
                     <IconButton onClick={handleDrawerClose}>
@@ -138,4 +137,4 @@ function NewPaletteForm(props) {
     );
 }
 
-export default withStyles(styles, { withTheme: true })(NewPaletteForm);
+export default withStyles(styles, { withTheme: false })(NewPaletteForm);
