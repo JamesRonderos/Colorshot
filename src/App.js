@@ -33,7 +33,6 @@ function App() {
     }
 
     return (
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Route render={({location}) => (
                 <TransitionGroup>
                     <CSSTransition timeout={300} classNames='page' key={location.key}>
@@ -91,7 +90,6 @@ function App() {
                     </CSSTransition>
                 </TransitionGroup>
             )} />
-        </BrowserRouter>
     );
 }
 
