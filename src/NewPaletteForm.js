@@ -54,6 +54,10 @@ function NewPaletteForm(props) {
         setSelectedCustomColor(selectedCustomColors.filter(color => color.name !== colorName))
     };
 
+    const checkDupe = (newRandColor) => {
+        return selectedCustomColors.some(color => color.name === newRandColor.name);
+    }
+
     // Add a random existing color to the custom palette
     const addRandomColor = () => {
         const allColors = palettes.length === 0 ? seedColors.map(p => p.colors).flat() : palettes.map(p => p.colors).flat();
@@ -63,7 +67,7 @@ function NewPaletteForm(props) {
         while (isDuplicateColor) {
             rand = Math.floor(Math.random() * allColors.length);
             newRandColor = { color: allColors[rand].color, name: allColors[rand].name };
-            isDuplicateColor = selectedCustomColors.some(color => color.name === newRandColor.name);
+            isDuplicateColor = checkDupe(newRandColor);
         }
         setSelectedCustomColor([...selectedCustomColors, newRandColor]);
     };

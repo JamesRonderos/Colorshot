@@ -14,7 +14,7 @@ import blue from '@material-ui/core/colors/blue'
 import red from '@material-ui/core/colors/red'
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import styles from "./styles/PaletteListStyles";
-import { withStyles } from "@material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
 
 
 function PaletteList(props) {

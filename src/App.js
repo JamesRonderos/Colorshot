@@ -9,7 +9,6 @@ import NewPaletteForm from "./NewPaletteForm";
 import Page from "./Page";
 import { generatePalette } from './colorHelpers';
 
-
 function App() {
     const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"))
     const [palettes, setPalettes] = useState(savedPalettes || seedColors)
