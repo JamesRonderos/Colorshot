@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import { withStyles } from "@material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
 import Colorbox from "./Colorbox";
 import Navbar from "./Navbar";
 import PaletteFooter from "./PaletteFooter";
