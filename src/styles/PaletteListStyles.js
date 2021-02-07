@@ -23,7 +23,7 @@ export default {
         overflowY: "auto"
 },
     heading: {
-        fontSize: "2rem"
+        fontSize: "2.25rem"
     },
     container: {
         width: "50%",

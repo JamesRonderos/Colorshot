@@ -6,6 +6,7 @@ import PaletteList from "./PaletteList";
 import SingleColorPalette from "./SingleColorPalette";
 import seedColors from './seedColors';
 import NewPaletteForm from "./NewPaletteForm";
+import { StylesProvider, createGenerateClassName } from '@material-ui/core/styles';
 import Page from "./Page";
 import { generatePalette } from './colorHelpers';
 
@@ -24,6 +25,10 @@ function App() {
         })
     }
 
+    const generateClassName = createGenerateClassName({
+        productionPrefix: 'c',
+    });
+
     const deletePalette = (id) => {
         setPalettes(palettes.filter(palette => palette.id !== id))
     }
@@ -33,6 +38,7 @@ function App() {
     }
 
     return (
+        <StylesProvider generateClassName={generateClassName}>
         <Route render={({location}) => (
             <TransitionGroup>
                 <CSSTransition timeout={300} classNames='page' key={location.key}>
@@ -90,6 +96,7 @@ function App() {
                 </CSSTransition>
             </TransitionGroup>
         )} />
+        </StylesProvider>
     );
 }
 

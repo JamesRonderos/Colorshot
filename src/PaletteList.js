@@ -51,7 +51,7 @@ function PaletteList(props) {
                 </nav>
                 <TransitionGroup className={classes.palettes}>
                     {palettes.map(palette => (
-                        <CSSTransition key={palette.id} classNames='fade' timeout={500}>
+                        <CSSTransition key={palette.id} classNames='fade' timeout={300}>
                             <MiniPalette
                                 {...palette}
                                 id={palette.id}
