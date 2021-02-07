@@ -11,7 +11,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 import DraggableColorList from './DraggableColorList';
 import arrayMove from 'array-move';
-import styles from './styles/NewPaletteFormStyles'
+import styles from './styles/NewPaletteFormStyles';
+import seedColors from "./seedColors";
 
 NewPaletteForm.defaultProps = {
     maxColors: 20
@@ -23,7 +24,7 @@ function NewPaletteForm(props) {
     const [ open, setOpen ] = useState( true );
 
     // Array of custom color: color-name pairs
-    const [ selectedCustomColors, setSelectedCustomColor ] = useState(palettes[0].colors);
+    const [ selectedCustomColors, setSelectedCustomColor ] = useState(seedColors[0].colors);
 
     // For saving custom palette names
     const [newPaletteName, setNewPaletteName] = useState("");
@@ -118,7 +119,7 @@ function NewPaletteForm(props) {
             >
                 <div className={classes.drawerHeader} />
                 {/* Render draggable color boxes from DraggableColorList */}
-                <DraggableColorList colors={selectedCustomColors} removeColor={removeColor} axis="xy" onSortEnd={onSortEnd} distance={1} />
+                <DraggableColorList colors={selectedCustomColors} removeColor={removeColor} axis="xy" onSortEnd={onSortEnd} distance={10} />
             </main>
         </div>
     );
