@@ -21,10 +21,10 @@ NewPaletteForm.defaultProps = {
 function NewPaletteForm(props) {
 
     const { classes, maxColors, palettes, savePalette, history } = props;
-    const [ open, setOpen ] = useState( true );
+    const [open, setOpen] = useState(true);
 
     // Array of custom color: color-name pairs
-    const [ selectedCustomColors, setSelectedCustomColor ] = useState(seedColors[0].colors);
+    const [selectedCustomColors, setSelectedCustomColor] = useState(seedColors[0].colors);
 
     // For saving custom palette names
     const [newPaletteName, setNewPaletteName] = useState("");
@@ -56,14 +56,20 @@ function NewPaletteForm(props) {
 
     // Add a random existing color to the custom palette
     const addRandomColor = () => {
-        const allColors = palettes.map(p=>p.colors).flat()
-        var rand = Math.floor(Math.random() * allColors.length);
-        const newRandColor = {color: allColors[rand].color, name: allColors[rand].name}
-        setSelectedCustomColor([...selectedCustomColors, newRandColor])
+        const allColors = palettes.length === 0 ? seedColors.map(p => p.colors).flat() : palettes.map(p => p.colors).flat();
+        let rand;
+        let newRandColor;
+        let isDuplicateColor = true;
+        while (isDuplicateColor) {
+            rand = Math.floor(Math.random() * allColors.length);
+            newRandColor = { color: allColors[rand].color, name: allColors[rand].name };
+            isDuplicateColor = selectedCustomColors.some(color => color.name === newRandColor.name);
+        }
+        setSelectedCustomColor([...selectedCustomColors, newRandColor]);
     };
 
     // Rearrange color boxes after dragging one to a new position
-    const onSortEnd = ({oldIndex, newIndex}) => {
+    const onSortEnd = ({ oldIndex, newIndex }) => {
         setSelectedCustomColor(arrayMove(selectedCustomColors, oldIndex, newIndex))
     };
 
@@ -91,25 +97,27 @@ function NewPaletteForm(props) {
             >
                 <div className={classes.drawerHeader}>
                     <IconButton onClick={handleDrawerClose}>
-                        <ChevronLeftIcon />
+                        <ChevronLeftIcon/>
                     </IconButton>
                 </div>
-                <Divider />
+                <Divider/>
                 <div className={classes.container}>
-                <Typography variant="h4" gutterBottom>Design Your Palette</Typography>
-                <div className={classes.buttons}>
-                    <Button variant="contained" className={classes.button} color="secondary" onClick={() => setSelectedCustomColor([])} >Clear Palette</Button>
-                    <Button variant="contained" className={classes.button} color="primary" onClick={addRandomColor} disabled={paletteIsFull}>
-                        {paletteIsFull ? "Palette Full" : "Random Color"}
-                    </Button>
-                </div>
+                    <Typography variant="h4" gutterBottom>Design Your Palette</Typography>
+                    <div className={classes.buttons}>
+                        <Button variant="contained" className={classes.button} color="secondary"
+                                onClick={() => setSelectedCustomColor([])}>Clear Palette</Button>
+                        <Button variant="contained" className={classes.button} color="primary" onClick={addRandomColor}
+                                disabled={paletteIsFull}>
+                            {paletteIsFull ? "Palette Full" : "Random Color"}
+                        </Button>
+                    </div>
 
-                {/*The Color Picker box*/}
-                <ColorPickerForm
-                    maxColors={maxColors}
-                    selectedCustomColors={selectedCustomColors}
-                    setSelectedCustomColor={setSelectedCustomColor}
-                />
+                    {/*The Color Picker box*/}
+                    <ColorPickerForm
+                        maxColors={maxColors}
+                        selectedCustomColors={selectedCustomColors}
+                        setSelectedCustomColor={setSelectedCustomColor}
+                    />
                 </div>
             </Drawer>
             <main
@@ -117,9 +125,10 @@ function NewPaletteForm(props) {
                     [classes.contentShift]: open,
                 })}
             >
-                <div className={classes.drawerHeader} />
+                <div className={classes.drawerHeader}/>
                 {/* Render draggable color boxes from DraggableColorList */}
-                <DraggableColorList colors={selectedCustomColors} removeColor={removeColor} axis="xy" onSortEnd={onSortEnd} distance={10} />
+                <DraggableColorList colors={selectedCustomColors} removeColor={removeColor} axis="xy"
+                                    onSortEnd={onSortEnd} distance={10}/>
             </main>
         </div>
     );
